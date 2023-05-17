@@ -1,9 +1,3 @@
-/**
- * 
- * @param {import('sequelize').Sequelize} sequelize 
- * @param {import('sequelize').DataTypes} DataTypes 
- */
-
 module.exports = (sequelize, DataTypes) => {
   const TeamTable = sequelize.define('Team', {
     id: {
@@ -12,12 +6,11 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       allowNull: false,
     },
-    teamName: DataTypes.STRING
+    teamName: DataTypes.STRING,
   }, {
     tableName: 'teams',
     underscored: true,
     timestamps: false,
-  })
-
+  });
   return TeamTable;
 };
