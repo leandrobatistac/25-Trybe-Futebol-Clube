@@ -4,6 +4,12 @@ import loginValidate from '../middlewares/loginValidate';
 
 const loginRoute = Router();
 
-loginRoute.post('/', loginValidate.checkBody, loginController.getUserByEmail);
+const loginMiddlewares = [
+  loginValidate.checkBody,
+  loginValidate.verifyEmail,
+  loginValidate.verifyPassword,
+];
+
+loginRoute.post('/', loginMiddlewares, loginController.getUserByEmail);
 
 export default loginRoute;
