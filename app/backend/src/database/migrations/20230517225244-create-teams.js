@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('teams', {
@@ -8,8 +9,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      team_name: {
-        type: Sequelize.STRING
+      teamName: {
+        allowNull: false,
+        type: Sequelize.STRING,
+        field: 'team_name',
       },
     });
   },
