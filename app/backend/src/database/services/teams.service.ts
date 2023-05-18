@@ -5,8 +5,14 @@ const getAllTeams = async () => {
   return allTeams;
 };
 
+const getTeamById = async (id:number) => teamModel.findOne({
+  attributes: ['id', 'teamName'],
+  where: { id },
+});
+
 const teamService = {
   getAllTeams,
+  getTeamById,
 };
 
 export default teamService;

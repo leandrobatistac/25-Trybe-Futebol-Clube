@@ -10,8 +10,19 @@ const getAllTeams = async (req: Request, res: Response, next:NextFunction) => {
   }
 };
 
+const getTeamById = async (req: Request, res: Response, next:NextFunction) => {
+  try {
+    const { id } = req.params;
+    const team = await teamService.getTeamById(Number(id));
+    res.status(200).json(team);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const productController = {
   getAllTeams,
+  getTeamById,
 };
 
 export default productController;
