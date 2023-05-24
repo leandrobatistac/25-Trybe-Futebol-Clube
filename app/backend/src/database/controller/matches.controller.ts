@@ -3,7 +3,8 @@ import matchService from '../services/matches.service';
 
 const getAllMatches = async (req: Request, res: Response, next:NextFunction) => {
   try {
-    const allMatches = await matchService.getAllMatches();
+    const { inProgress } = req.query;
+    const allMatches = await matchService.getAllMatches(inProgress);
     res.status(200).json(allMatches);
   } catch (error) {
     next(error);
