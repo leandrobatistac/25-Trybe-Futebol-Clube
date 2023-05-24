@@ -51,6 +51,20 @@ const queryHome:sequelize
       sequelize.fn('SUM', sequelize.col('away_team_goals')),
       'goalsOwn',
     ],
+
+    [
+      sequelize.literal('SUM(home_team_goals) - SUM(away_team_goals)'),
+      'goalsBalance',
+    ],
+
+    [
+      sequelize.literal(`ROUND( SUM( CASE
+      WHEN home_team_goals > away_team_goals THEN 3
+      WHEN home_team_goals = away_team_goals THEN 1
+      ELSE 0
+      END) / (COUNT(home_team_id) * 3) * 100, 2)`),
+      'efficiency',
+    ],
   ];
 
 const getAllTeamMatches = async () => {
@@ -60,13 +74,15 @@ const getAllTeamMatches = async () => {
     include: [
       { model: teamModel,
         as: 'homeTeam',
-        attributes: [],
-      },
+        attributes: [] },
     ],
     attributes: queryHome,
     group: 'home_team_id',
     order: [
       ['totalPoints', 'DESC'],
+      ['totalVictories', 'DESC'],
+      ['goalsBalance', 'DESC'],
+      ['goalsFavor', 'DESC'],
     ],
   });
   return allMatches;

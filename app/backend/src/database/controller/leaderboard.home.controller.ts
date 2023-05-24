@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import leaderboardService from '../services/leaderboard.service';
+import leaderboardService from '../services/leaderboard.home.service';
 
 const getAllMatches = async (req: Request, res: Response) => {
   const allMatches = await leaderboardService.getAllTeamMatches();

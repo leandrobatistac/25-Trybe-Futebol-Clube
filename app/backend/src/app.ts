@@ -4,7 +4,7 @@ import 'express-async-errors';
 import teamsRoute from './database/routes/teams.route';
 import loginRoute from './database/routes/login.route';
 import matchRoute from './database/routes/match.route';
-import leaderboardRoute from './database/routes/leaderboard.route';
+import leaderboardRoute from './database/routes/leaderboard.home.route';
 
 class App {
   public app: express.Express;
