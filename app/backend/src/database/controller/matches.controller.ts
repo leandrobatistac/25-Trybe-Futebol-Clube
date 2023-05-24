@@ -22,9 +22,22 @@ const finishMatch = async (req: Request, res: Response) => {
   }
 };
 
+const updateMatch = async (req: Request, res: Response) => {
+  try {
+    const token = req.headers.authorization as string;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    const { id } = req.params;
+    const match = await matchService.updateMatch(Number(id), token, homeTeamGoals, awayTeamGoals);
+    res.status(200).json(match);
+  } catch (error) {
+    res.status(401).send({ message: 'Token must be a valid token' });
+  }
+};
+
 const productController = {
   getAllMatches,
   finishMatch,
+  updateMatch,
 };
 
 export default productController;

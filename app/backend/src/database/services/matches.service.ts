@@ -31,9 +31,17 @@ const finishMatch = async (id:number, token:string) => {
   return updatedMatch;
 };
 
+const updateMatch = async (id:number, token:string, homeTeamGoals:number, awayTeamGoals:number) => {
+  tokens.validate(token) as JwtPayload;
+  const matchFromId = await matchModel.findByPk(id);
+  const updated = await matchFromId?.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+  return updated;
+};
+
 const matchService = {
   getAllMatches,
   finishMatch,
+  updateMatch,
 };
 
 export default matchService;

@@ -6,5 +6,6 @@ const teamsRoute = Router();
 
 teamsRoute.get('/', matchController.getAllMatches);
 teamsRoute.patch('/:id/finish', tokenValidate, matchController.finishMatch);
+teamsRoute.patch('/:id', tokenValidate, matchController.updateMatch);
 
 export default teamsRoute;
