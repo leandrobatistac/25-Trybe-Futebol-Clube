@@ -38,10 +38,39 @@ const updateMatch = async (id:number, token:string, homeTeamGoals:number, awayTe
   return updated;
 };
 
+interface MatchInfo {
+  homeTeamId: number;
+  homeTeamGoals: number;
+  awayTeamId: number;
+  awayTeamGoals: number;
+}
+
+const createMatch = async (token:string, matchsInfo:MatchInfo) => {
+  tokens.validate(token) as JwtPayload;
+
+  const {
+    homeTeamId,
+    homeTeamGoals,
+    awayTeamId,
+    awayTeamGoals,
+  } = matchsInfo;
+
+  const newMatch = await matchModel.create({
+    homeTeamId,
+    homeTeamGoals,
+    awayTeamId,
+    awayTeamGoals,
+    inProgress: true,
+  });
+
+  return newMatch;
+};
+
 const matchService = {
   getAllMatches,
   finishMatch,
   updateMatch,
+  createMatch,
 };
 
 export default matchService;
