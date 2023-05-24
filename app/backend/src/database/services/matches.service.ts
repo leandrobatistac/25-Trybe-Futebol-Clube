@@ -1,5 +1,7 @@
+import { JwtPayload } from 'jsonwebtoken';
 import matchModel from '../models/matches.model';
 import teamModel from '../models/teams.model';
+import tokens from '../utils/token';
 
 const getAllMatches = async (inProgress: unknown) => {
   const allMatches = await matchModel.findAll({
@@ -21,8 +23,17 @@ const getAllMatches = async (inProgress: unknown) => {
 
   return allMatches;
 };
+
+const finishMatch = async (id:number, token:string) => {
+  tokens.validate(token) as JwtPayload;
+  const matchFromId = await matchModel.findByPk(id);
+  const updatedMatch = await matchFromId?.update({ inProgress: false }, { where: { id } });
+  return updatedMatch;
+};
+
 const matchService = {
   getAllMatches,
+  finishMatch,
 };
 
 export default matchService;
