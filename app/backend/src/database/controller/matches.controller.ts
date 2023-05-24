@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import matchService from '../services/matches.service';
 
 const errorMessage = 'Token must be a valid token';
+const equalTeamMessage = 'It is not possible to create a match with two equal teams';
 
 const getAllMatches = async (req: Request, res: Response, next:NextFunction) => {
   try {
@@ -40,10 +41,15 @@ const createMatch = async (req: Request, res: Response) => {
   try {
     const token = req.headers.authorization as string;
     const matchInfo = req.body;
+
+    if (matchInfo.awayTeamId === matchInfo.homeTeamId) {
+      res.status(422).json({ message: equalTeamMessage });
+    }
+
     const newMatch = await matchService.createMatch(token, matchInfo);
     res.status(201).json(newMatch);
   } catch (error) {
-    res.status(401).send({ message: errorMessage });
+    res.status(404).send({ message: 'There is no team with such id!' });
   }
 };
 

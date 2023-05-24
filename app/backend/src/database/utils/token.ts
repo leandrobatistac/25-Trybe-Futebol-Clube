@@ -14,8 +14,12 @@ const generate = (id: number, email: string) => {
 };
 
 const validate = (token: string) => {
-  const isValid = verify(token, secretKey);
-  return isValid;
+  try {
+    const isValid = verify(token, secretKey);
+    return isValid;
+  } catch (err) {
+    return { message: 'Token must be a valid token' };
+  }
 };
 
 const tokens = {

@@ -5,10 +5,13 @@ const getAllTeams = async () => {
   return allTeams;
 };
 
-const getTeamById = async (id:number) => teamModel.findOne({
-  attributes: ['id', 'teamName'],
-  where: { id },
-});
+const getTeamById = async (id:number) => {
+  const team = teamModel.findOne({
+    attributes: ['id', 'teamName'],
+    where: { id },
+  });
+  return team;
+};
 
 const teamService = {
   getAllTeams,
