@@ -3,6 +3,7 @@ import 'express-async-errors';
 
 import teamsRoute from './database/routes/teams.route';
 import loginRoute from './database/routes/login.route';
+import matchRoute from './database/routes/match.route';
 
 class App {
   public app: express.Express;
@@ -29,6 +30,7 @@ class App {
 
     this.app.use('/teams', teamsRoute);
     this.app.use('/login', loginRoute);
+    this.app.use('/matches', matchRoute);
   }
 
   public start(PORT: string | number):void {
