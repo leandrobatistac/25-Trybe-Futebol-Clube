@@ -5,6 +5,7 @@ import teamsRoute from './database/routes/teams.route';
 import loginRoute from './database/routes/login.route';
 import matchRoute from './database/routes/match.route';
 import leaderboardRoute from './database/routes/leaderboard.home.route';
+import leaderboardRouteAway from './database/routes/leaderboard.away.route';
 
 class App {
   public app: express.Express;
@@ -33,6 +34,7 @@ class App {
     this.app.use('/login', loginRoute);
     this.app.use('/matches', matchRoute);
     this.app.use('/leaderboard', leaderboardRoute);
+    this.app.use('/leaderboard/away', leaderboardRouteAway);
   }
 
   public start(PORT: string | number):void {
